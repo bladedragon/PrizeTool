@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1/prize_tool_db?characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password:
+server:
+  port: 81

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="team.redrock.prize.mapper.CreateMapper">
+    <update id="createActivity">
+  CREATE TABLE `activity` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `actname` varchar(255) DEFAULT NULL,
+  `founder` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `status` int(10) DEFAULT NULL,
+  `time` datetime DEFAULT NULL,
+  `actid` varchar(255) DEFAULT NULL,
+  `reward` varchar(255) DEFAULT NULL,
+  `rewardID` varchar(255) DEFAULT NULL,
+  `mark` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `actname` (`actname`,`actid`,`reward`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=589 DEFAULT CHARSET=utf8;
+    </update>
+
+    <update id="createAdmin" >
+  CREATE TABLE `admin` (
+  `username` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `sessionid` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    </update>
+
+
+  <update id="createNon_specified_type" >
+  CREATE TABLE `non_specified_type` (
+  `stuname` varchar(255) DEFAULT NULL,
+  `stuid` varchar(255) DEFAULT NULL,
+  `openid` varchar(255) DEFAULT NULL,
+  `actid` varchar(255) DEFAULT NULL,
+  `add_time` datetime DEFAULT NULL,
+  `reward` varchar(255) DEFAULT NULL,
+  `rewardID` varchar(255) DEFAULT NULL,
+  `status` int(10) DEFAULT '1',
+  `push_status` int(10) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    </update>
+
+  <update id="createSpecified_type" >
+  CREATE TABLE `specified_type` (
+  `openid` varchar(255) DEFAULT NULL,
+  `stuname` varchar(255) DEFAULT NULL,
+  `college` varchar(255) DEFAULT NULL,
+  `stuid` varchar(255) DEFAULT NULL,
+  `telephone` bigint(10) DEFAULT NULL,
+  `actid` varchar(255) DEFAULT NULL,
+  `add_time` datetime DEFAULT NULL,
+  `reward` varchar(255) DEFAULT NULL,
+  `status` int(10) DEFAULT NULL,
+  `rewardID` varchar(255) DEFAULT NULL,
+  `push_status` int(10) DEFAULT NULL,
+  UNIQUE KEY `openid` (`openid`,`stuname`,`stuid`,`actid`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+    </update>
+
+
+  <update id="dropActivity">
+DROP TABLE IF EXISTS activity
+  </update>
+
+  <update id="dropAdmin">
+DROP TABLE IF EXISTS admin
+  </update>
+
+  <update id="dropNon_specified_type">
+DROP TABLE IF EXISTS non_specified_type
+  </update>
+
+  <update id="dropSpecified_type">
+  DROP TABLE IF EXISTS specified_type
+  </update>
+</mapper>

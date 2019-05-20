@@ -1,0 +1,54 @@
+mybatis:
+  type-aliases-package: team.redrock.prize.bean
+  mapper-locations: classpath:mybatis/*.xml
+
+
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+    encoding: UTF-8
+  redis:
+    host: localhost
+    port: 6379
+    database: 12
+    password:
+    timeout: 500ms
+
+    jedis:
+      pool:
+        max-idle: 8
+        min-idle: 2
+        max-active: 8
+        max-wait: 10000ms
+  profiles:
+    active: dev
+
+
+
+
+WX_APPID: "wx81a4a4b77ec98ff4"
+WX_APPSECRET: "58e74928490b55bebb483fc526828bfc"
+REDIRECT_URI: " http://65v7bh.natappfree.cc"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
