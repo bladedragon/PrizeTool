@@ -1,13 +1,15 @@
 package com.cqupt.prizetool.service;
 
-import com.cqupt.prizetool.bean.*;
+import com.cqupt.prizetool.config.TaskExecutorConfig;
+import com.cqupt.prizetool.model.*;
 import com.cqupt.prizetool.exception.ValidException;
-import com.cqupt.prizetool.mapper.ActivityMapper;
-import com.cqupt.prizetool.mapper.SpecifiedTypeMapper;
-import com.cqupt.prizetool.mapper.StuDataMapper;
-import com.cqupt.prizetool.pojo.response.SpecifiedActResponse;
-import com.cqupt.prizetool.utils.PosterUtil;
-import com.cqupt.prizetool.utils.SessionUtil;
+import com.cqupt.prizetool.mapper.master.ActivityMapper;
+import com.cqupt.prizetool.mapper.master.SpecifiedTypeMapper;
+import com.cqupt.prizetool.mapper.slave.StuDataMapper;
+import com.cqupt.prizetool.model.response.SpecifiedActResponse;
+
+import com.cqupt.prizetool.pojo.SendThread;
+import com.cqupt.prizetool.utils.UnicodeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -39,28 +41,27 @@ public class SpecifiedActService {
     @Autowired
     AsyncTaskService asyncTaskService;
     @Autowired
-    PosterUtil posterUtil;
-    @Autowired
     RedisTemplate<Object, TempAct> tempActRedisTemplate;
     Pattern pattern = Pattern.compile("\\\"errmsg\\\":\\\"(.*?)\\\"");
+    @Autowired
+    TaskExecutorConfig taskExecutorConfig;
 
     public SpecifiedActResponse createSpecifiedAct(List<PrizeList> typeA, List<RewardList> typeB, String activity, HttpServletRequest request) throws SQLException, ValidException {
           final int[] result = {-1};
         SimpleDateFormat f_date = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String date = f_date.format(new Date());
-
         HttpSession session = request.getSession();
-         String actid;
-         String brewardID;
+        String actid;
+        String brewardID;
         List<String>  actids = activityMapper.SelectActivityId(activity);
 
           if(actids.isEmpty()){
-            actid = getID(activity);
+            actid = UnicodeUtil.getID(activity);
           }else{
                actid = actids.get(0);
           }
           if(actid.equals("0")){
-              actid = getID(activity);
+              actid = UnicodeUtil.getID(activity);
           }
           final String finalActid = actid;
 
@@ -71,20 +72,18 @@ public class SpecifiedActService {
           }
         log.info("ZLOG=>CountSum:"+CountSum);
           Map<String,String> Arewards = new HashMap<>();
-//         List<Map<String, String>> failedMsg = Collections.synchronizedList(new ArrayList());   //线程不安全
+
         CountDownLatch countDownLatch = new CountDownLatch(CountSum);
        Vector<Map<String, String>> failedMsg = new Vector<>();
 
-       if(tempActRedisTemplate.delete("CACHE_"+actid)){
-            log.error("删除成功");
-        }else{
-            log.error("删除失败");
+       if(tempActRedisTemplate.delete("CACHE_"+session.getAttribute("SESSIONNAME")+"_"+actid)){
+            log.error("成功删除缓存");
         }
 
         for (int i = 0; i < typeA.size(); i++) {
 
             PrizeList prizeList = typeA.get(i);
-           String  arewardID = getID(prizeList.getReward());
+           String  arewardID = UnicodeUtil.getID(prizeList.getReward());
 
             activityMapper.insert(new Activity(activity, (String) session.getAttribute("SESSIONNAME"),1, date, actid, prizeList.getReward(),arewardID,prizeList.getMark()));
 
@@ -114,27 +113,8 @@ public class SpecifiedActService {
                 specifiedTypeMapper.insert(student);
                 Arewards.put(prizeList.getReward(),arewardID);
 
-                    new Thread(() ->{
-                        try {
-                            result[0]=getFailedSend(templateMessageService.sendMsg(openid,msg, activity, prizeList.getReward(), date, prizeList.getPrizeDate(), prizeList.getRemark()));
-                            if(result[0]==1){
-                                Map<String, String> stuMsg = new HashMap<>();
-                                stuMsg.put("stuname", student.getStuname());
-                                stuMsg.put("college", student.getCollege());
-                                stuMsg.put("stuid", student.getStuid());
-                                stuMsg.put("telephone", reqStudent.getTelephone());
-                                stuMsg.put("reward",prizeList.getReward());
-                                failedMsg.add(stuMsg);
-                            }
-                            specifiedTypeMapper.updatePush_status(result[0],finalActid,arewardID,student.getStuid());
-                            Thread.sleep(1000);
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        countDownLatch.countDown();
-                }).start();
+                    taskExecutorConfig.executor.execute(new SendThread(specifiedTypeMapper,templateMessageService,openid,msg,activity,prizeList.getReward(),date,prizeList.getPrizeDate(), prizeList.getRemark()
+                    ,student.getStuname(),student.getCollege(),student.getStuid(),reqStudent.getTelephone(),finalActid,arewardID,countDownLatch));
 
             }
     }
@@ -147,7 +127,7 @@ public class SpecifiedActService {
         Map<String,String> Brewards = new HashMap<>();
             for(int m =0;m<typeB.size();m++ ){
                 RewardList rewardList = typeB.get(m);
-                brewardID = getID(rewardList.getReward());
+                brewardID = UnicodeUtil.getID(rewardList.getReward());
                 activityMapper.insert(new Activity(activity, (String) session.getAttribute("SESSIONNAME"),1, date, actid,rewardList.getReward(),brewardID,rewardList.getMark()));
                 Brewards.put(rewardList.getReward(),brewardID);
             }
@@ -177,17 +157,5 @@ public class SpecifiedActService {
         }
         return 0;
     }
-
-
-    private  static String  getID(String activity){
-        String longID = SessionUtil.getMD5(activity);
-        String actID = longID.substring(0,6);
-        return actID;
-    }
-
-
-
-
-
 
 }

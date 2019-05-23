@@ -1,11 +1,11 @@
 package com.cqupt.prizetool.service;
 
-import com.cqupt.prizetool.bean.StudentA;
-import com.cqupt.prizetool.bean.StudentB;
+import com.cqupt.prizetool.model.StudentA;
+import com.cqupt.prizetool.model.StudentB;
 import com.cqupt.prizetool.exception.ValidException;
-import com.cqupt.prizetool.mapper.SpecifiedTypeMapper;
-import com.cqupt.prizetool.pojo.response.ShowPrizerAResponse;
-import com.cqupt.prizetool.pojo.response.ShowPrizerBResponse;
+import com.cqupt.prizetool.mapper.master.SpecifiedTypeMapper;
+import com.cqupt.prizetool.model.response.ShowPrizerAResponse;
+import com.cqupt.prizetool.model.response.ShowPrizerBResponse;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;

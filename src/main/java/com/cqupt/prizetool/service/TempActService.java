@@ -1,13 +1,13 @@
 package com.cqupt.prizetool.service;
 
 
-import com.cqupt.prizetool.bean.PrizeList;
-import com.cqupt.prizetool.bean.RewardList;
-import com.cqupt.prizetool.bean.TempAct;
+import com.cqupt.prizetool.model.PrizeList;
+import com.cqupt.prizetool.model.RewardList;
+import com.cqupt.prizetool.model.TempAct;
 import com.cqupt.prizetool.exception.ValidException;
-import com.cqupt.prizetool.mapper.ActivityMapper;
-import com.cqupt.prizetool.pojo.response.NSpecifiedActResponse;
-import com.cqupt.prizetool.utils.SessionUtil;
+import com.cqupt.prizetool.mapper.master.ActivityMapper;
+import com.cqupt.prizetool.model.response.NSpecifiedActResponse;
+import com.cqupt.prizetool.utils.UnicodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -28,6 +28,7 @@ public class TempActService {
     @Autowired
     private ActivityMapper activityMapper;
 
+
     public NSpecifiedActResponse getTempAct(List<PrizeList> typeA, List<RewardList> typeB, String activity, HttpServletRequest request) throws ValidException {
         SimpleDateFormat f_date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String date = f_date.format(new Date());
@@ -39,7 +40,7 @@ public class TempActService {
         tempAct.setTypeA(typeA);
         tempAct.setTypeB(typeB);
         tempAct.setFounder(founder);
-        String actid = getID(activity);
+        String actid = UnicodeUtil.getID(activity);
 //        if(typeA.size()!=0||typeB.size()!=0) {
 //            int num = 0;
 //            for (int i = 0; i < typeA.size(); i++) {
@@ -60,13 +61,9 @@ public class TempActService {
         tempActRedisTemplate.opsForValue().set("CACHE_"+founder+"_"+actid,tempAct);
         tempActRedisTemplate.expire(activity,7, TimeUnit.DAYS);
 
-       return new NSpecifiedActResponse(200,"success",getID(activity));
+       return new NSpecifiedActResponse(200,"success", UnicodeUtil.getID(activity));
 
     }
 
-    private  static String  getID(String activity){
-        String longID = SessionUtil.getMD5(activity);
-        String actID = longID.substring(0,6);
-        return actID;
-    }
+
 }

@@ -1,6 +1,6 @@
 package com.cqupt.prizetool.service;
 
-import com.cqupt.prizetool.bean.TempAct;
+import com.cqupt.prizetool.model.TempAct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;

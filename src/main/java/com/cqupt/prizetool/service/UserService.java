@@ -1,10 +1,10 @@
 package com.cqupt.prizetool.service;
 
 
-import com.cqupt.prizetool.bean.UserInfo;
-import com.cqupt.prizetool.mapper.UserMapper;
-import com.cqupt.prizetool.pojo.response.UserResponse;
-import com.cqupt.prizetool.utils.SHAUtil;
+import com.cqupt.prizetool.model.UserInfo;
+import com.cqupt.prizetool.mapper.master.UserMapper;
+import com.cqupt.prizetool.model.response.UserResponse;
+import com.cqupt.prizetool.utils.UnicodeUtil;
 import com.cqupt.prizetool.utils.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -40,7 +40,7 @@ public class UserService {
             if(user ==null){
                 return new UserResponse(-3,"用户名不存在",null);
             }
-            String encodedPassword  = SHAUtil.getSHA256("redrock"+user.getPassword());   //加密
+            String encodedPassword  = UnicodeUtil.getSHA256("redrock"+user.getPassword());   //加密
 
             if(!password.equals(encodedPassword)){
                 return new UserResponse(-4,"密码错误！",null);

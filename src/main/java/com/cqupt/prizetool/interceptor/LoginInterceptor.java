@@ -31,7 +31,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         String noMatchPath = ".*/(login).*";
         String resourcePath = ".*/(file).*";
         String distPath = ".*/(dist).*";
-        String jsPath = ".*/(js).*";
         String path = request.getServletPath();
 
         String errorPath = ".*/(error).*";
@@ -40,7 +39,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
             throw new ValidException("Internal Server Error");
         }
-        if (path.matches(noMatchPath)||path.matches(resourcePath)||path.matches(jsPath)||path.matches(distPath)) {
+        if (path.matches(noMatchPath)||path.matches(resourcePath)||path.matches(distPath)) {
 
             // 授权路径，不拦截
             return true;

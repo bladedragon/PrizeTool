@@ -3,7 +3,7 @@ package com.cqupt.prizetool.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
-import com.cqupt.prizetool.bean.WXAccount;
+import com.cqupt.prizetool.model.WXAccount;
 import com.cqupt.prizetool.utils.HttpUtil;
 import com.cqupt.prizetool.utils.UserInfoUtil;
 import lombok.extern.slf4j.Slf4j;

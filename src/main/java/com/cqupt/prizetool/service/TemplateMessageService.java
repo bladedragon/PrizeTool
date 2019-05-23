@@ -1,9 +1,9 @@
 package com.cqupt.prizetool.service;
 
 import com.alibaba.fastjson.JSON;
-import com.cqupt.prizetool.access_token.Scheduler;
-import com.cqupt.prizetool.bean.TemplateData;
-import com.cqupt.prizetool.bean.TemplateMsg;
+import com.cqupt.prizetool.utils.access_token.Scheduler;
+import com.cqupt.prizetool.model.TemplateData;
+import com.cqupt.prizetool.model.TemplateMsg;
 import com.cqupt.prizetool.utils.HttpUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +21,7 @@ import java.util.Map;
 public class TemplateMessageService {
 
 
-//    @Value("${OPENIDTemp}")
-////    private String fromUserName;
+
     @Value("${TEMPLATE_ID}")
     private String template_id;
     @Value("${SENDURL}")
@@ -55,12 +54,11 @@ public class TemplateMessageService {
         return templateMsg;
     }
 //    @Async("getAsyncExecutor")
-    public String  sendMsg(String openid,String msg,String activity,String award,String addtime,String prizetime,String remark) throws SQLException {
+    public String  sendMsg(String openid,String msg,String activity,String award,String addtime,String prizetime,String remark) throws SQLException{
 
         String accesstoken = "";
 
         accesstoken= scheduler.getAccess_Token();
-        log.error("方法内调用accesstoken="+accesstoken);
         String url = sendurl+accesstoken;
         String HttpResponse  = "0";
 
@@ -69,6 +67,7 @@ public class TemplateMessageService {
         synchronized (this) {
             try {
                 HttpResponse = httpUtil.httpRequestToString(url, "POST", JSON.toJSONString(templateMsg));
+                System.out.println("template_id = "+template_id);
             } catch (NoSuchProviderException e) {
                 e.printStackTrace();
                 log.error("ZLOG==> Request error");

@@ -1,7 +1,7 @@
 package com.cqupt.prizetool.controller;
 
 
-import com.cqupt.prizetool.verify.CheckUtils;
+import com.cqupt.prizetool.utils.verify.CheckUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,7 +14,7 @@ import java.io.UnsupportedEncodingException;
 @Controller
 public class VerifyToken {
 
-    @RequestMapping("/wx/token")
+    @RequestMapping("/prize/wx/token")
     @ResponseBody
     public String verifyWXToken(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         request.setCharacterEncoding("UTF-8");

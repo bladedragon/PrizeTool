@@ -1,10 +1,10 @@
 package com.cqupt.prizetool.controller;
 
-import com.cqupt.prizetool.bean.PrizeList;
-import com.cqupt.prizetool.bean.RewardList;
-import com.cqupt.prizetool.bean.SpecifiedAct;
+import com.cqupt.prizetool.model.PrizeList;
+import com.cqupt.prizetool.model.RewardList;
+import com.cqupt.prizetool.model.SpecifiedAct;
 import com.cqupt.prizetool.exception.ValidException;
-import com.cqupt.prizetool.pojo.response.SpecifiedActResponse;
+import com.cqupt.prizetool.model.response.SpecifiedActResponse;
 import com.cqupt.prizetool.service.SpecifiedActService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class SpecifiedActController {
 //    @Autowired
 //    AsyncTaskService asyncService;
 
- @PostMapping(value = "/specifiedAct")
+ @PostMapping(value = "/prize/specifiedAct")
 public SpecifiedActResponse SpecifiedActOperation(@RequestBody SpecifiedAct specifiedAct, HttpServletRequest request) throws ValidException {
 if(specifiedAct==null){
     throw new ValidException("Param cannnot be null");

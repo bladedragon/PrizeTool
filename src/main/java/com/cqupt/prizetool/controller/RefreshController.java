@@ -1,8 +1,8 @@
 package com.cqupt.prizetool.controller;
 
-import com.cqupt.prizetool.access_token.Scheduler;
+import com.cqupt.prizetool.utils.access_token.Scheduler;
 import com.cqupt.prizetool.exception.ValidException;
-import com.cqupt.prizetool.pojo.response.GetPrizeResponse;
+import com.cqupt.prizetool.model.response.GetPrizeResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,14 +16,14 @@ public class RefreshController {
 
     @Autowired
     Scheduler scheduler;
-    @PostMapping("/refresh")
+    @PostMapping("/prize/refresh")
     public GetPrizeResponse refreshToken(@RequestParam(value = "token",required = false)String token, HttpServletRequest request) throws ValidException {
 
         if(null==token||!request.getSession().getAttribute("SESSIONID").equals(token)){
             throw new ValidException("token验证无效");
         }
 
-        String accesstoken = scheduler.getAccessTokenApi();
+        String accesstoken = scheduler.getAccessTokenFromURL();
 
        if(null==accesstoken||accesstoken.equals("")){
            return new GetPrizeResponse(-2,"获取accestoken失败");

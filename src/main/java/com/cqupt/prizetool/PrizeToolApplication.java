@@ -10,7 +10,8 @@ import org.springframework.web.WebApplicationInitializer;
 
 @ServletComponentScan
 @SpringBootApplication
-@MapperScan("com.cqupt.prizetool.mapper")
+@MapperScan("com.cqupt.prizetool.mapper.master")
+@MapperScan("com.cqupt.prizetool.mapper.slave")
 public class PrizeToolApplication extends SpringBootServletInitializer implements WebApplicationInitializer {
 
     public static void main(String[] args) {

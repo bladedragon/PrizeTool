@@ -1,8 +1,8 @@
 package com.cqupt.prizetool.controller;
 
 import com.cqupt.prizetool.exception.ValidException;
-import com.cqupt.prizetool.pojo.response.ShowPrizerAResponse;
-import com.cqupt.prizetool.pojo.response.ShowPrizerBResponse;
+import com.cqupt.prizetool.model.response.ShowPrizerAResponse;
+import com.cqupt.prizetool.model.response.ShowPrizerBResponse;
 import com.cqupt.prizetool.service.ShowPrizerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class ShowPrizerController {
     @Autowired
     ShowPrizerService showPrizerService;
 
-    @PostMapping("/showPrizerA")
+    @PostMapping("/prize/showPrizerA")
     public ShowPrizerAResponse showPrizerA(@RequestParam(value = "actid", defaultValue = "") String actId, @RequestParam(value = "type", defaultValue = "0") int type, @RequestParam(value = "page", defaultValue = "0") int page,
                                            @RequestParam(value = "pagesize", defaultValue = "5") int pagesize, @RequestParam(value = "token", required = false) String token, HttpServletRequest request) throws ValidException {
         if (null == token || !request.getSession().getAttribute("SESSIONID").equals(token)) {

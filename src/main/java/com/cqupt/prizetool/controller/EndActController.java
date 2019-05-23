@@ -1,8 +1,8 @@
 package com.cqupt.prizetool.controller;
 
 import com.cqupt.prizetool.exception.ValidException;
-import com.cqupt.prizetool.mapper.ActivityMapper;
-import com.cqupt.prizetool.pojo.response.GetPrizeResponse;
+import com.cqupt.prizetool.mapper.master.ActivityMapper;
+import com.cqupt.prizetool.model.response.GetPrizeResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,7 +17,7 @@ public class EndActController {
     @Autowired
     ActivityMapper activityMapper;
 
-    @PostMapping("/EndActivity")
+    @PostMapping("/prize/EndActivity")
     public GetPrizeResponse EndAct(@RequestParam(value = "token",required = false)String token,
                                    @RequestParam(value = "actid",defaultValue = "") String actid,
                                    HttpServletRequest request) throws ValidException {

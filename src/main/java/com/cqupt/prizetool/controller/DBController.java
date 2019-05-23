@@ -1,10 +1,10 @@
 package com.cqupt.prizetool.controller;
 
 
-import com.cqupt.prizetool.bean.UserInfo;
-import com.cqupt.prizetool.mapper.CreateMapper;
-import com.cqupt.prizetool.mapper.UserMapper;
-import com.cqupt.prizetool.pojo.response.ErrorResponse;
+import com.cqupt.prizetool.model.UserInfo;
+import com.cqupt.prizetool.mapper.master.CreateMapper;
+import com.cqupt.prizetool.mapper.master.UserMapper;
+import com.cqupt.prizetool.model.response.ErrorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +17,7 @@ public class DBController {
     @Autowired
     private UserMapper userMapper;
 
-    @PostMapping("/init")
+    @PostMapping("/prize/init")
     public ErrorResponse init(){
         createMapper.dropActivity();
         createMapper.dropAdmin();

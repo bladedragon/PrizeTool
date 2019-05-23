@@ -1,10 +1,10 @@
 package com.cqupt.prizetool.service;
 
-import com.cqupt.prizetool.bean.ShowAct;
-import com.cqupt.prizetool.bean.TempAct;
-import com.cqupt.prizetool.mapper.ActivityMapper;
-import com.cqupt.prizetool.pojo.response.ShowActivityResponse;
-import com.cqupt.prizetool.utils.SessionUtil;
+import com.cqupt.prizetool.model.ShowAct;
+import com.cqupt.prizetool.model.TempAct;
+import com.cqupt.prizetool.mapper.master.ActivityMapper;
+import com.cqupt.prizetool.model.response.ShowActivityResponse;
+import com.cqupt.prizetool.utils.UnicodeUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +46,6 @@ public class ShowActivityService {
         PageHelper.startPage(start,pagesize);
         List<ShowAct> activities =activityMapper.SelectActAll((String) session.getAttribute("SESSIONNAME"));
 
-//        Set<String> keys = tempActStringRedisTemplate.keys("*");
 
         Set<String> keys = tempActRedisTemplate.execute(new RedisCallback<Set<String>>() {
             @Override
@@ -64,7 +63,7 @@ public class ShowActivityService {
             if(!matcherStr.equals("")) {
                 TempAct tempAct = tempActRedisTemplate.opsForValue().get(matcherStr);
                 String activity = tempAct.getActivity();
-                activities.add(new ShowAct(activity, tempAct.getFounder(), 2, "", getID(activity), null));
+                activities.add(new ShowAct(activity, tempAct.getFounder(), 2, "", UnicodeUtil.getID(activity), null));
             }
         }
 
@@ -79,12 +78,6 @@ public class ShowActivityService {
         }
 
         return new ShowActivityResponse(200,"success",total ,page.getList());
-    }
-
-    private  static String  getID(String activity){
-        String longID = SessionUtil.getMD5(activity);
-        String actID = longID.substring(0,6);
-        return actID;
     }
 
     private static String getMatcher(String str,String founder){

@@ -2,7 +2,7 @@ package com.cqupt.prizetool.controller;
 
 
 import com.cqupt.prizetool.exception.ValidException;
-import com.cqupt.prizetool.pojo.response.UserResponse;
+import com.cqupt.prizetool.model.response.UserResponse;
 import com.cqupt.prizetool.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +19,7 @@ class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping(value = "/login")
+    @PostMapping(value = "/prize/login")
     public UserResponse userLogin(@RequestParam(value = "username",defaultValue = "") String username, @RequestParam(value = "password",defaultValue = "") String password, HttpServletRequest request, HttpServletResponse response) throws ValidException {
 
 

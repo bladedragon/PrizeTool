@@ -2,7 +2,7 @@ package com.cqupt.prizetool.controller;
 
 
 import com.cqupt.prizetool.exception.ValidException;
-import com.cqupt.prizetool.pojo.response.GetPrizeResponse;
+import com.cqupt.prizetool.model.response.GetPrizeResponse;
 import com.cqupt.prizetool.service.DeleteTempService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +18,7 @@ public class DeleteTempActController {
     @Autowired
     DeleteTempService deleteTempService;
 
-    @PostMapping(value = "/deleteTemp")
+    @PostMapping(value = "/prize/deleteTemp")
     public GetPrizeResponse deleteTemp(@RequestParam(value = "token",required = false)String token,
                                        @RequestParam(value = "actid",defaultValue = "") String actid, HttpServletRequest request) throws ValidException {
         if(actid.equals("")){
@@ -28,7 +28,7 @@ public class DeleteTempActController {
             throw new ValidException("token验证无效");
         }
 
-        int result = deleteTempService.DeleteTemp("CACHE_"+actid);
+        int result = deleteTempService.DeleteTemp("CACHE_"+request.getSession().getAttribute("SESSIONNAME")+"_"+actid);
 
         switch(result){
             case 1:return new GetPrizeResponse(200,"success");

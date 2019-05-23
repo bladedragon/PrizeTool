@@ -1,5 +1,5 @@
 mybatis:
-  type-aliases-package: team.redrock.prize.bean
+  type-aliases-package: com.cqupt.prizetool.model
   mapper-locations: classpath:mybatis/*.xml
 
 
@@ -27,10 +27,12 @@ spring:
 
 
 
-
-WX_APPID: "wx81a4a4b77ec98ff4"
+TEMPLATE_ID: "INyjzFxlIPpe4tmV3Hvbgd0jCE7Yf8jBVPE7HsmATpg"
+SENDURL: "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="
+GET_ACCESSTOKEN_URL: "https://api.weixin.qq.com/cgi-bin/token?grant_type="
+WX_APPID: "wxaf05acd677a29f25"
 WX_APPSECRET: "58e74928490b55bebb483fc526828bfc"
-REDIRECT_URI: " http://65v7bh.natappfree.cc"
+REDIRECT_URI: "http://mrcat2.natappfree.cc"
 
 
 

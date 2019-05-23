@@ -1,7 +1,7 @@
 package com.cqupt.prizetool.utils;
 
 
-import com.cqupt.prizetool.verify.SHA1Utils;
+import com.cqupt.prizetool.utils.verify.SHA1Utils;
 
 public class UserInfoUtil {
 

@@ -1,11 +1,11 @@
 package com.cqupt.prizetool.controller;
 
 
-import com.cqupt.prizetool.bean.PrizeList;
-import com.cqupt.prizetool.bean.RewardList;
-import com.cqupt.prizetool.bean.SpecifiedAct;
+import com.cqupt.prizetool.model.PrizeList;
+import com.cqupt.prizetool.model.RewardList;
+import com.cqupt.prizetool.model.SpecifiedAct;
 import com.cqupt.prizetool.exception.ValidException;
-import com.cqupt.prizetool.pojo.response.NSpecifiedActResponse;
+import com.cqupt.prizetool.model.response.NSpecifiedActResponse;
 import com.cqupt.prizetool.service.TempActService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +22,7 @@ public class TempActController {
     @Autowired
     TempActService tempActService;
 
-    @PostMapping("/tempAct")
+    @PostMapping("/prize/tempAct")
     public NSpecifiedActResponse modifyAct(@RequestBody SpecifiedAct specifiedAct, HttpServletRequest request) throws ValidException {
 
         String token = specifiedAct.getToken();

@@ -1,8 +1,8 @@
 package com.cqupt.prizetool.controller;
 
-import com.cqupt.prizetool.bean.NSpecifiedAct;
+import com.cqupt.prizetool.model.NSpecifiedAct;
 import com.cqupt.prizetool.exception.ValidException;
-import com.cqupt.prizetool.pojo.response.NSpecifiedActResponse;
+import com.cqupt.prizetool.model.response.NSpecifiedActResponse;
 import com.cqupt.prizetool.service.NSpecifiedActService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class NSpecifiedActController {
     @Autowired
     NSpecifiedActService specifiedActService;
 
-    @PostMapping(value = "/noSpecifiedAct")
+    @PostMapping(value = "/prize/noSpecifiedAct")
     @ResponseBody
     public NSpecifiedActResponse NSpecifiedActOperation(@RequestBody NSpecifiedAct nSpecifiedAct, HttpServletRequest request) throws ValidException {
 

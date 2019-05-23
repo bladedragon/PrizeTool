@@ -1,14 +1,13 @@
 package com.cqupt.prizetool.controller;
 
-import com.cqupt.prizetool.bean.SingleSendStudent;
-import com.cqupt.prizetool.bean.WXAccount;
+import com.cqupt.prizetool.model.SingleSendStudent;
+import com.cqupt.prizetool.model.WXAccount;
 import com.cqupt.prizetool.exception.ValidException;
-import com.cqupt.prizetool.mapper.SpecifiedTypeMapper;
-import com.cqupt.prizetool.mapper.StuDataMapper;
-import com.cqupt.prizetool.pojo.response.GetPrizeResponse;
+import com.cqupt.prizetool.mapper.master.SpecifiedTypeMapper;
+import com.cqupt.prizetool.mapper.slave.StuDataMapper;
+import com.cqupt.prizetool.model.response.GetPrizeResponse;
 import com.cqupt.prizetool.service.TemplateMessageService;
-import com.cqupt.prizetool.utils.PosterUtil;
-import com.cqupt.prizetool.utils.SessionUtil;
+import com.cqupt.prizetool.utils.UnicodeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,14 +29,12 @@ public class SingleSendController {
     @Autowired
     TemplateMessageService templateMessageService;
     @Autowired
-    PosterUtil posterUtil;
-    @Autowired
     SpecifiedTypeMapper specifiedTypeMapper;
     @Autowired
     StuDataMapper stuDataMapper;
     Pattern pattern = Pattern.compile("\\\"errmsg\\\":\\\"(.*?)\\\"");
 
-    @PostMapping("/sendOne")
+    @PostMapping("/prize/sendOne")
     public GetPrizeResponse SingleSend(
             @RequestBody SingleSendStudent singleSendStudent,
             HttpServletRequest request) throws ValidException {
@@ -86,15 +83,11 @@ public class SingleSendController {
 
             return new GetPrizeResponse(-2,"发送失败");
         }
-        specifiedTypeMapper.updatePush_status(0,getID(activity),getID(reward),stuid);
+        specifiedTypeMapper.updatePush_status(0, UnicodeUtil.getID(activity), UnicodeUtil.getID(reward),stuid);
         return new GetPrizeResponse(200,"发送成功");
 
 
     }
 
-    private  static String  getID(String activity){
-        String longID = SessionUtil.getMD5(activity);
-        String actID = longID.substring(0,6);
-        return actID;
-    }
+
 }

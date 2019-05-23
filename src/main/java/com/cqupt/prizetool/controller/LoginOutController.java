@@ -1,7 +1,7 @@
 package com.cqupt.prizetool.controller;
 
 import com.cqupt.prizetool.exception.ValidException;
-import com.cqupt.prizetool.pojo.response.GetPrizeResponse;
+import com.cqupt.prizetool.model.response.GetPrizeResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +20,7 @@ public class LoginOutController {
     @Autowired
     StringRedisTemplate stringRedisTemplate;
 
-    @PostMapping("/loginOut")
+    @PostMapping("/prize/loginOut")
     public GetPrizeResponse loginOut(@RequestParam(value = "token",required = false)String token, HttpServletRequest request, HttpServletResponse response) throws ValidException {
 
 
@@ -39,7 +39,6 @@ public class LoginOutController {
             switch(cookie.getName()){
                 case "isLogined":
                     System.out.println("获取到cookie");
-
                     cookie.setMaxAge(0);
                     cookie.setPath(request.getContextPath());
                     response.addCookie(cookie); //重新写入，将覆盖之前的
@@ -48,15 +47,6 @@ public class LoginOutController {
                     break;
             }
         }
-        try {
-            Thread.currentThread().sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-
-
-
 
 
       return new GetPrizeResponse(200,"sucess");

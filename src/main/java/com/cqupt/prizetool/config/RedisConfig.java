@@ -1,7 +1,7 @@
 package com.cqupt.prizetool.config;
 
 
-import com.cqupt.prizetool.bean.TempAct;
+import com.cqupt.prizetool.model.TempAct;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;

@@ -1,7 +1,7 @@
 package com.cqupt.prizetool.service;
 
-import com.cqupt.prizetool.bean.TempAct;
-import com.cqupt.prizetool.pojo.response.ShowTempReponse;
+import com.cqupt.prizetool.model.TempAct;
+import com.cqupt.prizetool.model.response.ShowTempReponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;

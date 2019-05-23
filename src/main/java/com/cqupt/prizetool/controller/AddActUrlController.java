@@ -1,10 +1,10 @@
 package com.cqupt.prizetool.controller;
 
-import com.cqupt.prizetool.bean.Acturl;
-import com.cqupt.prizetool.bean.AddActUrl;
+import com.cqupt.prizetool.model.Acturl;
+import com.cqupt.prizetool.model.AddActUrl;
 import com.cqupt.prizetool.exception.ValidException;
-import com.cqupt.prizetool.mapper.ActivityMapper;
-import com.cqupt.prizetool.pojo.response.AddActUrlResponse;
+import com.cqupt.prizetool.mapper.master.ActivityMapper;
+import com.cqupt.prizetool.model.response.AddActUrlResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +21,7 @@ public class AddActUrlController {
     @Autowired
     ActivityMapper activityMapper;
 
-    @PostMapping("/addActUrl")
+    @PostMapping("/prize/addActUrl")
     public AddActUrlResponse actUrl(@RequestBody AddActUrl addActUrl,
                                     HttpServletRequest request) throws ValidException {
 

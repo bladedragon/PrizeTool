@@ -1,7 +1,7 @@
 package com.cqupt.prizetool.controller;
 
 import com.cqupt.prizetool.exception.ValidException;
-import com.cqupt.prizetool.pojo.response.ShowActivityResponse;
+import com.cqupt.prizetool.model.response.ShowActivityResponse;
 import com.cqupt.prizetool.service.ShowActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +17,7 @@ public class ShowActivityController {
     @Autowired
     ShowActivityService showActivityService;
 
-    @PostMapping("/showActivity")
+    @PostMapping("/prize/showActivity")
     public ShowActivityResponse showActivity(@RequestParam(value = "token",required = false)String token, @RequestParam(value = "page",defaultValue = "0") int page, @RequestParam(value = "pagesize",defaultValue = "5") int pagesize, HttpServletRequest request) throws ValidException {
 
 

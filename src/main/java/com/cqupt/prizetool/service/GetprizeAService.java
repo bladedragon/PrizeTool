@@ -1,17 +1,14 @@
 package com.cqupt.prizetool.service;
 
-import com.cqupt.prizetool.bean.ReqStudent;
-import com.cqupt.prizetool.bean.StudentA;
-import com.cqupt.prizetool.bean.StudentB;
-import com.cqupt.prizetool.bean.responseBean.StuInfoResponseBean;
+import com.cqupt.prizetool.model.ReqStudent;
+import com.cqupt.prizetool.model.StudentA;
+import com.cqupt.prizetool.model.StudentB;
 import com.cqupt.prizetool.exception.ValidException;
-import com.cqupt.prizetool.mapper.ActivityMapper;
-import com.cqupt.prizetool.mapper.GetPrizerMapper;
-import com.cqupt.prizetool.mapper.SpecifiedTypeMapper;
-import com.cqupt.prizetool.mapper.StuDataMapper;
-import com.cqupt.prizetool.pojo.response.GetPrizeResponse;
-import com.cqupt.prizetool.utils.PosterUtil;
-import com.cqupt.prizetool.utils.SessionUtil;
+import com.cqupt.prizetool.mapper.master.ActivityMapper;
+import com.cqupt.prizetool.mapper.master.GetPrizerMapper;
+import com.cqupt.prizetool.mapper.master.SpecifiedTypeMapper;
+import com.cqupt.prizetool.mapper.slave.StuDataMapper;
+import com.cqupt.prizetool.model.response.GetPrizeResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,8 +31,6 @@ public class GetprizeAService {
     ActivityMapper activityMapper;
     @Autowired
     StuDataMapper stuDataMapper;
-    @Autowired
-    PosterUtil posterUtil;
 
     public GetPrizeResponse getPrizeA(String openid, String actid, String rewardid ){
 
@@ -96,7 +91,7 @@ public class GetprizeAService {
             return new GetPrizeResponse(-5,"Activity has ended");
         }
 
-        StuInfoResponseBean sirbean;
+
         StudentB studentB = getPrizerMapper.findStudentB(openid,actid,rewardid);
         SimpleDateFormat f_date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String date = f_date.format(new Date());
