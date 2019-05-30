@@ -21,8 +21,9 @@ public class LoginConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //拦截所有的controller
-        registry.addInterceptor(loginInterceptor()).addPathPatterns("/**").excludePathPatterns("/wx/token").excludePathPatterns("/getPrizeA/**")
-                .excludePathPatterns("/getPrizeB/**").excludePathPatterns("/temp/**").excludePathPatterns("/wxOperate/**").excludePathPatterns("/init");
+        registry.addInterceptor(loginInterceptor()).addPathPatterns("/**").excludePathPatterns("/prize/wx/token").excludePathPatterns("/prize/getPrizeA/**")
+                .excludePathPatterns("/prize/getPrizeB/**").excludePathPatterns("/prize/temp/**").excludePathPatterns("/prize/wx_operate/**").excludePathPatterns("/prize/init")
+        .excludePathPatterns("/prize/addr/**");
     }
 
 }

@@ -17,7 +17,7 @@ spring:
      maxWait: 60000
      timeBetweenEvictionRunsMillis: 60000
      minEvictableIdleTimeMillis: 300000
-     validationQuery: SELECT 'x'
+     validationQuery: SELECT 1 FROM DUAL
      testOnBorrow: false
      testOnReturn: false
      poolPreparedStatements: true
@@ -29,4 +29,4 @@ spring:
 
 
 server:
-  port: 90
+  port: 80

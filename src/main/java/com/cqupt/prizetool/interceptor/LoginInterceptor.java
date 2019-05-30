@@ -30,16 +30,17 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         // 初始化拦截器，设置不拦截路径
         String noMatchPath = ".*/(login).*";
         String resourcePath = ".*/(file).*";
+        String cssPath = ".*/(css).*";
         String distPath = ".*/(dist).*";
+        String jsPath = ".*/(js).*";
         String path = request.getServletPath();
-
         String errorPath = ".*/(error).*";
 
         if(path.matches(errorPath)){
-
             throw new ValidException("Internal Server Error");
         }
-        if (path.matches(noMatchPath)||path.matches(resourcePath)||path.matches(distPath)) {
+        if (path.matches(noMatchPath)||path.matches(resourcePath)
+                ||path.matches(distPath)||path.matches(cssPath)||path.matches(jsPath)) {
 
             // 授权路径，不拦截
             return true;
@@ -62,7 +63,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
         }
 //        return true;
-        log.info("ZLOG==>SESSIONID:"+session.getAttribute("SESSIONID"));
+        log.info("ZLOG==>Path:"+path);
         throw new ValidException("token验证无效");
     }
 

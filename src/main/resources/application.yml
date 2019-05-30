@@ -32,8 +32,8 @@ SENDURL: "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="
 GET_ACCESSTOKEN_URL: "https://api.weixin.qq.com/cgi-bin/token?grant_type="
 WX_APPID: "wxaf05acd677a29f25"
 WX_APPSECRET: "58e74928490b55bebb483fc526828bfc"
-REDIRECT_URI: "http://mrcat2.natappfree.cc"
-
+REDIRECT_URI: "http://zblade.top/prize"
+#REDIRECT_URI: "http://srey3u.natappfree.cc/prize"
 
 
 

@@ -1,10 +1,13 @@
 package com.cqupt.prizetool.utils;
 
+import com.alibaba.druid.sql.ast.statement.SQLForeignKeyImpl;
+import com.alibaba.druid.sql.visitor.functions.Char;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
@@ -64,11 +67,29 @@ public class UnicodeUtil {
         return actID;
     }
 
+    public static volatile int ADDRID = 100;
+
+    public  static int  getAddrID(){
+
+        UnicodeUtil.ADDRID += 1;
+        long now = System.currentTimeMillis();
+        //获取4位年份数字
+        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy");
+        //获取时间戳
+        String time=dateFormat.format(now);
+        String info=now+"";
+
+        int ran=0;
+        if(UnicodeUtil.ADDRID>999){
+            UnicodeUtil.ADDRID=100;
+        }
+        ran=UnicodeUtil.ADDRID;
+        return Integer.valueOf(info.substring(10, info.length())+ran);
+    }
+
     public static void main(String[] args) {
-        String str = "123456";
-        String key = "redrock";
-        String encodedStr = UnicodeUtil.getSHA256("redrock"+"zzz");
-        System.out.println(encodedStr);
+        int s = getAddrID();
+        System.out.println(s);
     }
 
 }

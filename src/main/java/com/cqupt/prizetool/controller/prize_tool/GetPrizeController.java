@@ -1,4 +1,4 @@
-package com.cqupt.prizetool.controller;
+package com.cqupt.prizetool.controller.prize_tool;
 
 import com.cqupt.prizetool.model.WXAccount;
 import com.cqupt.prizetool.exception.ValidException;
@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
@@ -66,8 +69,8 @@ public class GetPrizeController {
 
     }
 
-    @GetMapping("/getPrizeA/{actid}/{rewardid}")
-    public String getPrizeA(@RequestParam(name = "code", required = false) String code,
+    @GetMapping("/prize/getPrizeA/{actid}/{rewardid}")
+    public String getPrizeA(HttpServletRequest request,@RequestParam(name = "code", required = false) String code,
                                       @RequestParam(name = "state") String state, @PathVariable(name = "actid") String actid, @PathVariable(name = "rewardid")String rewardid) throws NoSuchProviderException, NoSuchAlgorithmException, ValidException {
 
         WXAccount wxAccount = wxAuthorizeServicew.getWxInfo(code,state);
@@ -75,17 +78,20 @@ public class GetPrizeController {
             throw new ValidException("Fail to authorize");
         }
 
+        HttpSession session = request.getSession();
+        session.setAttribute("openid",wxAccount.getOpenid());
         GetPrizeResponse response =  getprizeAService.getPrizeA(wxAccount.getOpenid(),actid,rewardid);
         log.info("getPrizeA's Response:"+response);
+
         if(response.getStatus()==200){
-            return "success.html";
+            return "successpage";
         }
-        return "fail.html";
+        return "failpage";
 
     }
 
-    @GetMapping("/getPrizeB/{actid}/{rewardid}")
-    public String getPrizeB(@RequestParam(name = "code", required = false) String code,
+    @GetMapping("/prize/getPrizeB/{actid}/{rewardid}")
+    public String getPrizeB(HttpServletRequest request,@RequestParam(name = "code", required = false) String code,
                             @RequestParam(name = "state") String state,@PathVariable(name = "actid") String actid,@PathVariable(name = "rewardid") String rewardid) throws NoSuchProviderException, NoSuchAlgorithmException, ValidException {
 
         //这里写获取openid的方法
@@ -95,66 +101,16 @@ public class GetPrizeController {
             log.error("ZLOG==>Fail to authorize");
             throw new ValidException("Fail to authorize");
         }
-
+        HttpSession session = request.getSession();
+        session.setAttribute("openid",wxAccount.getOpenid());
        GetPrizeResponse response= getprizeAService.getPrizeB(wxAccount.getOpenid(),actid,rewardid);
         log.info("getPrizeB's Response:"+response);
 
 
         if(response.getStatus()==200){
-                return "success.html";
+                return "successpage";
             }
-            return "fail.html";
+            return "failpage";
 
     }
-
-//        @GetMapping("/getPrizeA/{actid}/{reward}")
-//        public String getPrizeA(WxUser wxUser, @PathVariable(name = "actid") String actid,
-//                                @PathVariable(name = "reward")String reward) throws ValidException {
-//
-//            if(wxUser==null){
-//                log.error("ZLOG==>Fail to authorize");
-//                throw new ValidException("Fail to authorize");
-//            }
-//
-//        String openid = wxUser.getOpenid();
-//            log.info("ZLOG==>getObject："+wxUser.equals(""));
-////        log.info("接受到的openid==》"+openid);
-////        log.info("接受到的昵称==》"+wxUser.getNickname());
-////        log.info("接受到的城市==》"+wxUser.getCity());
-////        log.info("接受到的国家==》"+wxUser.getCountry());
-////        log.info("接受到的性别==》"+wxUser.getSex());
-////        log.info("接受到的unionid==》"+wxUser.getUnionid());
-////        log.info("接受到的头像地址=》"+wxUser.getHeadimgurl());
-//
-//        GetPrizeResponse response = getprizeAService.getPrizeA(openid,actid,reward);
-//
-//            if(response.getStatus()==200){
-//
-//                return "success.html";
-//            }
-//
-//            return "fail.html";
-//    }
-//
-//    @GetMapping("/getPrizeB/{actid}/{reward}")
-//    public String getPrizeB(WxUser wxUser, @PathVariable(name = "actid") String actid,
-//                                      @PathVariable(name = "reward")String reward) throws ValidException {
-//        if(wxUser==null){
-//            throw new ValidException("Fail to authorize");
-//        }
-//
-//
-//       GetPrizeResponse response= getprizeAService.getPrizeB(wxUser.getOpenid(),actid,reward);
-//
-//        if(response.getStatus()==200){
-//
-//            return "success.html";
-//        }
-//
-//        return "fail.html";
-//
-//
-//    }
-
-
 }

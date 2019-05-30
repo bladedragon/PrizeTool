@@ -1,15 +1,122 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>登陆成功</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>success</title>
+    　<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <script th:src="@{/js/jquery.cityselect.js}" ></script>
+    <style>
+        .box {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .box span {
+            font: 3vw Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+            font-weight: bold;
+            color: rgba(0, 0, 0, 0.65);
+        }
+        .box img {
+            width: 5vw;
+            height: 5vw;
+            margin-bottom: 8vw;
+        }
+        .box .flex-col-start {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+    </style>
 </head>
 <body>
-<div class="panel panel-primary">
-    <div class="panel-heading" style="color: aquamarine">
-    <h3 class="panel-title">领奖成功</h3>
+<div class="box">
+    <div class="flex-col-start">
+        <img src="https://s2.ax1x.com/2019/02/06/kYXPNd.png">
+        <span>领奖成功</span>
+        <button class="btn btn-lg  btn-block s-margin-2" id ="permit"  onclick="permit()">填写地址</button>
+        <button class="btn btn-lg  btn-block s-margin-2" id = "refuse" onclick="refuse()">暂不填写</button>
+        <div class="flex-col-start" id = "addrButton" style="display: none;">
+            <div class="person-data-place">
+                <p>居住地:</p>
+                <div id="city_4">
+                    <select class="prov"></select>
+                    <select class="city" disabled="disabled"></select>
+                    <select class="dist" disabled="disabled"></select>
+                </div>
+            </div>
+            <input type="text" id = "address" class="form-control s-margin-1" placeholder="请输入你的具体领奖地址" required>
+            <button class="btn btn-lg  btn-block s-margin-2" onclick="addAddr()">确定</button>
+        </div>
     </div>
 
 </div>
+
+
+
+<script type="application/javascript">
+    // var hosturl = "http://localhost:90";
+    var hosturl = "http://2q95kb.natappfree.cc"
+    function refuse() {
+        window.location.href = hosturl+"/file/success.html";
+    }
+    function permit() {
+        var setbutton = document.getElementById("addrButton");
+        setbutton.style.display = "block";
+    }
+    function addAddr() {
+        var addrs = {};
+        addrs.address = document.getElementById("address").value;
+        addrs.prov = document.querySelector(".prov").value;
+        addrs.city = document.querySelector(".city").value;
+        addrs.dist = document.querySelector(".dist").value;
+        var response;
+        $.ajax({
+            async: false,
+            type: 'POST',
+            url: hosturl + "/prize/addr/setAddr",
+            data: addrs,
+            dataType: 'json',
+            success: function (result) {
+                response = result;
+            },
+            error: function (result) {
+                alert('服务器异常');
+            }
+        });
+        console.log(response.status);
+        if(response.status ==0)
+        {
+            alert("填写成功");
+            window.location.href = hosturl+"/file/success.html";
+        }else{
+            alert(response.msg);
+        }
+    }
+
+    $(function () {
+
+        $("#city_4").citySelect({
+            prov: "省",
+            city: "市",
+            dist: "区/县",
+            nodata: "none"
+        });
+
+
+    })
+
+
+</script>
 </body>
 </html>

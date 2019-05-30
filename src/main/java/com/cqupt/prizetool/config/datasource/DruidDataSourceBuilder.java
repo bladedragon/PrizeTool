@@ -1,6 +1,9 @@
 package com.cqupt.prizetool.config.datasource;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.cqupt.prizetool.utils.SpringContextUtil;
+import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 
 public class DruidDataSourceBuilder {
@@ -53,5 +56,10 @@ public class DruidDataSourceBuilder {
         return dataSource;
     }
 
+    @Bean(name="transactionManager")
+    public DataSourceTransactionManager transactionManager(){
 
+        return new DataSourceTransactionManager(dataSource);
+
+    }
 }

@@ -1,4 +1,4 @@
-package com.cqupt.prizetool.controller;
+package com.cqupt.prizetool.controller.prize_tool;
 
 
 import com.cqupt.prizetool.utils.verify.CheckUtils;
