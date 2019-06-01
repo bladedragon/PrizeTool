@@ -21,10 +21,10 @@ public class RedisConfig {
             RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<Object, TempAct> template = new RedisTemplate<Object, TempAct>();
         template.setConnectionFactory(redisConnectionFactory);
-        //使用json的序列化器
+
         Jackson2JsonRedisSerializer ser = new Jackson2JsonRedisSerializer<TempAct>(TempAct.class);
-//        JdkSerializationRedisSerializer ser = new JdkSerializationRedisSerializer();
-        template.setDefaultSerializer(ser);                 //相当于key的序列化类型和value的序列化类型
+
+        template.setDefaultSerializer(ser);
         return template;
     }
 
@@ -33,10 +33,10 @@ public class RedisConfig {
             RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, TempAct> template = new RedisTemplate<String, TempAct>();
         template.setConnectionFactory(redisConnectionFactory);
-        //使用json的序列化器
+
         StringRedisSerializer ser = new StringRedisSerializer();
-//        JdkSerializationRedisSerializer ser = new JdkSerializationRedisSerializer();
-        template.setDefaultSerializer(ser);                 //相当于key的序列化类型和value的序列化类型
+
+        template.setDefaultSerializer(ser);
         return template;
     }
 
@@ -45,10 +45,10 @@ public class RedisConfig {
             RedisConnectionFactory redisConnectionFactory) throws UnknownHostException {
         RedisTemplate<String, String> template = new RedisTemplate<String, String>();
         template.setConnectionFactory(redisConnectionFactory);
-        //使用json的序列化器
+
         Jackson2JsonRedisSerializer ser = new Jackson2JsonRedisSerializer<String>(String.class);
-//       JdkSerializationRedisSerializer ser = new JdkSerializationRedisSerializer();
-        template.setDefaultSerializer(ser);                 //相当于key的序列化类型和value的序列化类型
+
+        template.setDefaultSerializer(ser);
         return template;
     }
 

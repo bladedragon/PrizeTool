@@ -40,6 +40,7 @@ public class TempActController {
 
         NSpecifiedActResponse response = tempActService.getTempAct(typeA,typeB,activity,request);
 
+        System.out.println("来自tempcontroller"+response);
         return response;
     }
 

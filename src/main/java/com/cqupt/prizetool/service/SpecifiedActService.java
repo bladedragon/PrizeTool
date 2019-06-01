@@ -8,7 +8,7 @@ import com.cqupt.prizetool.mapper.master.SpecifiedTypeMapper;
 import com.cqupt.prizetool.mapper.slave.StuDataMapper;
 import com.cqupt.prizetool.model.response.SpecifiedActResponse;
 
-import com.cqupt.prizetool.pojo.SendThread;
+import com.cqupt.prizetool.model.SendThread;
 import com.cqupt.prizetool.utils.UnicodeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,7 +113,7 @@ public class SpecifiedActService {
                 specifiedTypeMapper.insert(student);
                 Arewards.put(prizeList.getReward(),arewardID);
 
-                    taskExecutorConfig.executor.execute(new SendThread(specifiedTypeMapper,templateMessageService,openid,msg,activity,prizeList.getReward(),date,prizeList.getPrizeDate(), prizeList.getRemark()
+                    taskExecutorConfig.asyncExecutor().execute(new SendThread(specifiedTypeMapper,templateMessageService,openid,msg,activity,prizeList.getReward(),date,prizeList.getPrizeDate(), prizeList.getRemark()
                     ,student.getStuname(),student.getCollege(),student.getStuid(),reqStudent.getTelephone(),finalActid,arewardID,countDownLatch));
 
             }

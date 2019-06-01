@@ -6,22 +6,22 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 
-public class DruidDataSourceBuilder {
-    private DruidDataSource dataSource = new DruidDataSource();
+public class    DruidDataSourceBuilder {
+        private DruidDataSource dataSource = new DruidDataSource();
 
-    public final static DruidDataSourceBuilder newInstance() {
-        return new DruidDataSourceBuilder();
-    }
+        public final static DruidDataSourceBuilder newInstance() {
+            return new DruidDataSourceBuilder();
+        }
 
-    public DruidDataSourceBuilder appendDriverClassName(String driverClassName) {
-        dataSource.setDriverClassName(driverClassName);
-        return this;
-    }
+        public DruidDataSourceBuilder appendDriverClassName(String driverClassName) {
+            dataSource.setDriverClassName(driverClassName);
+            return this;
+        }
 
-    public DruidDataSourceBuilder appendUrl(String url) {
-        dataSource.setUrl(url);
-        return this;
-    }
+        public DruidDataSourceBuilder appendUrl(String url) {
+            dataSource.setUrl(url);
+            return this;
+        }
 
     public DruidDataSourceBuilder appendUsername(String username) {
         dataSource.setUsername(username);

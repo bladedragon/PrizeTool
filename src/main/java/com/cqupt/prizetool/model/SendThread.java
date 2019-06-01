@@ -1,9 +1,10 @@
-package com.cqupt.prizetool.pojo;
+package com.cqupt.prizetool.model;
 
 import com.cqupt.prizetool.mapper.master.SpecifiedTypeMapper;
 import com.cqupt.prizetool.service.TemplateMessageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.sql.SQLException;
@@ -13,7 +14,7 @@ import java.util.Vector;
 import java.util.concurrent.CountDownLatch;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+@Async("asyncExecutor")
 @Slf4j
 public class SendThread implements Runnable {
     @Autowired
@@ -65,7 +66,6 @@ public class SendThread implements Runnable {
         Matcher matcher = pattern.matcher(httpResponse);
         while (matcher.find()) {
             text = matcher.group(1);
-            System.out.println(matcher.group(1));
         }
         log.error("ZLOG=>errorMsg:" + text);
 

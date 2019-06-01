@@ -59,10 +59,7 @@ public class UnicodeUtil {
     }
 
     public  static String  getID(String activity){
-        long timestamp = System.currentTimeMillis();
-        SimpleDateFormat f_date = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String date = f_date.format(new Date());
-        String longID = SessionUtil.getMD5(activity+":"+String.valueOf(timestamp)+":"+date);
+        String longID = SessionUtil.getMD5(activity);
         String actID = longID.substring(0,6);
         return actID;
     }

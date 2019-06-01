@@ -25,31 +25,24 @@ import java.util.regex.Pattern;
 
 @Slf4j
 @Component
-//@EnableAsync
-public class TaskExecutorConfig {//实现AsyncConfigurer接口
-    //
-//    @Override
-//    @Bean("processExecutor")
-//    public Executor getAsyncExecutor() {//实现AsyncConfigurer接口并重写getAsyncExecutor方法，并返回一个ThreadPoolTaskExecutor，这样我们就获得了一个基于线程池TaskExecutor
-//        ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
-//        taskExecutor.setCorePoolSize(5);
-//        taskExecutor.setMaxPoolSize(20);
-//        taskExecutor.setQueueCapacity(25);
-//        taskExecutor.initialize();
-//
-//        return taskExecutor;
-//    }
-//
-//    @Override
-//    public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
-//        return null;
-//    }
-//
+
+@EnableAsync
+public class TaskExecutorConfig implements AsyncConfigurer{
+
+
+
     private static int corePoolSize = Runtime.getRuntime().availableProcessors();
-    public ThreadPoolExecutor executor = new ThreadPoolExecutor(
-            corePoolSize, corePoolSize + 1,
-            101, TimeUnit.SECONDS,
-            new LinkedBlockingQueue<Runnable>(1000));
+    @Bean("asyncExecutor")
+    public Executor asyncExecutor(){
+         ThreadPoolExecutor executor = new ThreadPoolExecutor(
+                corePoolSize, corePoolSize + 10 ,
+                101, TimeUnit.SECONDS,
+                new LinkedBlockingQueue<Runnable>(1000));
+
+         return executor;
+    }
+
+
 
 
 }

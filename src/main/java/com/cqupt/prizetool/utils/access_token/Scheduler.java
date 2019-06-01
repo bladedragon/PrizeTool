@@ -22,7 +22,7 @@ import java.sql.SQLException;
 @Slf4j
 public class Scheduler {
 
-    private Logger logger = LoggerFactory.getLogger(getClass());
+
     @Autowired
     RedisTokenHelper redisTokenHelper = new RedisTokenHelper();
     @Value("${WX_APPID}")
@@ -31,20 +31,15 @@ public class Scheduler {
     private String WX_APPSECRET;
     @Value("${GET_ACCESSTOKEN_URL}")
     private String GET_ACCESSTOKEN_URL;
-    /**
-     * 定时获取access_token
-     *
-     * @throws SQLException
-     */
+
     @Scheduled(fixedDelay = 7180000)
     public String getAccessTokenFromURL() {
-        logger.info("==============开始获取access_token===============");
         String access_token = null;
         String grant_type = "client_credential";
         String AppId = WX_APPID;
         String secret = WX_APPSECRET;
         String url = GET_ACCESSTOKEN_URL+ grant_type + "&appid=" + AppId + "&secret=" + secret;
-        logger.info("getUrl==>" + url);
+
 
         try {
             URL urlGet = new URL(url);
@@ -63,17 +58,15 @@ public class Scheduler {
             JSONObject demoJson = JSONObject.fromObject(message);
             System.out.println(demoJson.toString());
             access_token = demoJson.getString("access_token");
-            logger.info("get access_token==>" + access_token);
+
             is.close();
-            System.out.println("==============结束获取access_token===============");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        System.out.println("==============开始写入access_token===============");
         redisTokenHelper.save("global_token", access_token);
 
-        System.out.println("==============写入access_token成功===============");
         return access_token;
     }
 

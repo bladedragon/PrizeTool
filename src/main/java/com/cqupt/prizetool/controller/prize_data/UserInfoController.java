@@ -73,8 +73,8 @@ public class UserInfoController {
 
     @PostMapping("/prize/addr/addUser")
     @ResponseBody
-    public ErrorResponse addUserInfo(HttpServletRequest request,String stuname, String stuid,
-                                     int collage,long telephone){
+    public ErrorResponse addUserInfo(HttpServletRequest request,@RequestParam(defaultValue = "")String stuname, @RequestParam(defaultValue = "")String stuid,
+                                      int collage, long telephone){
         ErrorResponse errorResponse = new ErrorResponse();
         HttpSession session = request.getSession();
         int flag = 0;
@@ -86,10 +86,14 @@ public class UserInfoController {
 
         if(session.getAttribute("nickname")== null||session.getAttribute("openid")== null){
             flag = 1;
-        }
+            stuInfo.setOpenid("");
+            stuInfo.setNickname("");
+        }else{
             System.out.println(session.getAttribute("nickname"));
             stuInfo.setOpenid((String) session.getAttribute("nickname"));
             stuInfo.setOpenid((String) session.getAttribute("openid"));
+
+        }
 
 
 

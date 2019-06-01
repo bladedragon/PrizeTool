@@ -8,6 +8,7 @@ import com.cqupt.prizetool.utils.HttpUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.security.NoSuchAlgorithmException;
@@ -53,7 +54,7 @@ public class TemplateMessageService {
 
         return templateMsg;
     }
-//    @Async("getAsyncExecutor")
+
     public String  sendMsg(String openid,String msg,String activity,String award,String addtime,String prizetime,String remark) throws SQLException{
 
         String accesstoken = "";
@@ -67,7 +68,6 @@ public class TemplateMessageService {
         synchronized (this) {
             try {
                 HttpResponse = httpUtil.httpRequestToString(url, "POST", JSON.toJSONString(templateMsg));
-                System.out.println("template_id = "+template_id);
             } catch (NoSuchProviderException e) {
                 e.printStackTrace();
                 log.error("ZLOG==> Request error");

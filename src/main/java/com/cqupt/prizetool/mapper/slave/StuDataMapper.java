@@ -27,7 +27,7 @@ public interface StuDataMapper {
     @Insert("INSERT INTO student_address (openid,addr_id,address,province,city,district,prior) VALUES(#{openid},#{addr_id},#{address},#{prov},"
             +"#{city},#{dist},#{prior})")
     int insertAddr(@Param("openid") String openid, @Param("addr_id") int addr_id, @Param("address") String address, @Param("prov") String prov,
-               @Param("city") String city, @Param("dist") String dist, @Param("prior") int prior);
+                   @Param("city") String city, @Param("static/dist") String dist, @Param("prior") int prior);
     @Select("SELECT prior FROM student_address WHERE openid = #{openid}")
     List<Integer> getAddrsByOpenid(String openid);
 

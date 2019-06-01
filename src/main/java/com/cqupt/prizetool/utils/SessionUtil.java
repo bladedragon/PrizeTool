@@ -11,8 +11,7 @@ import java.security.MessageDigest;
 public class SessionUtil {
 
     public  String createSessionId(String username){
-//        SimpleDateFormat f_date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        String date = f_date.format(new Date());
+
         String timestamp = String.valueOf(System.currentTimeMillis());
             String OriginID = username+":"+timestamp;
                 String EncodedID =getMD5(OriginID)+":xczzz";
@@ -37,9 +36,9 @@ public class SessionUtil {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-//        System.out.println(secondEncodedStr);
+
         String md5str = secondEncodedStr.replace(":xczzz","");
-//        System.out.println(md5str);
+
         String OriginID = convertMD5(convertMD5(md5str));
         return OriginID;
     }
@@ -81,15 +80,6 @@ public class SessionUtil {
 
     }
 
-
-
-
-
-//    public static void main(String[] args) {
-//        String str = createSessionId("zzz");
-////        System.out.println(str);
-////        System.out.println(decodeSessionId(str));
-//    }
 }
 
 

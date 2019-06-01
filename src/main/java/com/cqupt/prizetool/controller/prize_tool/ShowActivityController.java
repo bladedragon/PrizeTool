@@ -33,6 +33,7 @@ public class ShowActivityController {
         ShowActivityResponse showResponse;
         showResponse = showActivityService.showActivity(page,pagesize,request);
 
+        System.out.println("来自controller："+showResponse);
         return showResponse;
     }
 

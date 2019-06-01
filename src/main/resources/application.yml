@@ -12,7 +12,7 @@ spring:
   redis:
     host: localhost
     port: 6379
-    database: 12
+    database: 11
     password:
     timeout: 500ms
 
@@ -33,7 +33,7 @@ GET_ACCESSTOKEN_URL: "https://api.weixin.qq.com/cgi-bin/token?grant_type="
 WX_APPID: "wxaf05acd677a29f25"
 WX_APPSECRET: "58e74928490b55bebb483fc526828bfc"
 REDIRECT_URI: "http://zblade.top/prize"
-#REDIRECT_URI: "http://srey3u.natappfree.cc/prize"
+#REDIRECT_URI: "http://26uq7m.natappfree.cc/prize"
 
 
 

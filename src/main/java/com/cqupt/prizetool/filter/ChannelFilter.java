@@ -2,8 +2,6 @@ package com.cqupt.prizetool.filter;
 
 
 
-import com.cqupt.prizetool.pojo.RequestWrapper;
-
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;

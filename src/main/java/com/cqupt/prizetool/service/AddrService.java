@@ -5,7 +5,6 @@ import com.cqupt.prizetool.utils.SpringContextUtil;
 import com.cqupt.prizetool.utils.UnicodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLIntegrityConstraintViolationException;

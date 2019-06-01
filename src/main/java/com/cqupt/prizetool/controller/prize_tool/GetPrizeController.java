@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -50,6 +51,7 @@ public class GetPrizeController {
 
 
     @GetMapping("/prize/wx_operate/redirect_A/{actid}/{rewardid}")
+    @ResponseBody
     public void redirectPrizeA(HttpServletRequest request, HttpServletResponse response,
                               @PathVariable(name = "actid") String actid,@PathVariable(name = "rewardid") String rewardid) throws IOException {
         response.sendRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WX_APPID
@@ -60,6 +62,7 @@ public class GetPrizeController {
     }
 
     @GetMapping("/prize/wx_operate/redirect_B/{actid}/{rewardid}")
+    @ResponseBody
     public void redirectPrizeB(HttpServletRequest request, HttpServletResponse response,
                               @PathVariable(name = "actid") String actid,@PathVariable(name = "rewardid") String rewardid) throws IOException {
         response.sendRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WX_APPID

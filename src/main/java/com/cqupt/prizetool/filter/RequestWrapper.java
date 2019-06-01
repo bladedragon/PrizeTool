@@ -1,4 +1,4 @@
-package com.cqupt.prizetool.pojo;
+package com.cqupt.prizetool.filter;
 
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;

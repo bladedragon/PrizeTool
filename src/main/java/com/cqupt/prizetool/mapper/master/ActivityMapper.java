@@ -34,7 +34,7 @@ public interface ActivityMapper {
     @Results({
             @Result(property = "actname", column = "actname"),
             @Result(property = "urls",column = "actname",
-                    many =@Many(select = "team.redrock.prize.mapper.ActivityMapper.SelectUrl"))
+                    many =@Many(select = "com.cqupt.prizetool.mapper.master.ActivityMapper.SelectUrl"))
     })
     @Select("Select actname,founder,status,time,actid from activity where founder = #{founder} group by actname,founder,status,actid ")
     List<ShowAct> SelectActAll(String founder);

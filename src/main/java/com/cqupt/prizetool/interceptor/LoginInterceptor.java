@@ -1,7 +1,7 @@
 package com.cqupt.prizetool.interceptor;
 
 import com.cqupt.prizetool.exception.ValidException;
-import com.cqupt.prizetool.pojo.RequestWrapper;
+import com.cqupt.prizetool.filter.RequestWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

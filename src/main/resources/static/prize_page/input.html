@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>学生信息提交表</title>
+</head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  .flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .container .row {
+    width: 200px;
+    margin-bottom: 10px;
+  }
+
+  .container .row div {
+    font-size: 16px;
+    width: 100%;
+  }
+
+  .container .row input {
+    color: #c6c6c6;
+    width: 100%;
+    text-decoration: none;
+    border: none;
+    height: 35px;
+    border-bottom: 1px solid #f6f6f6;
+    font-size: 14px;
+    outline: none;
+  }
+
+  .container .submit {
+    padding: 15px;
+  }
+
+  .container .submit button {
+    width: 100px;
+    height: 35px;
+    font-size: 16px;
+    border-radius: 4px;
+    background: #fff;
+    border: 1px solid #66b5ff;
+    color: #66b5ff;
+  }
+</style>
+<body>
+  <div class="container">
+    <div class="row">
+      <div>姓名</div>
+      <input type="text" class="stuname" />
+    </div>
+    <div class="row">
+      <div>学院</div>
+      <input type="text" class="collage" />
+    </div>
+    <div class="row">
+      <div>学号</div>
+      <input type="text" class="stuid" />
+    </div>
+    <div class="row">
+      <div>联系电话</div>
+      <input type="text" class="telephone" />
+    </div>
+    <div class="flex-center submit">
+      <button>提交</button>
+    </div>
+  </div>
+</body>
+<script>
+  let button = document.querySelector('button')
+
+  button.addEventListener('click', handleClick)
+
+  function createForm(data) {
+    var form = new FormData()
+
+    Object.entries(data)
+      .map(([key, value]) => form.append(key, value))
+
+    return form
+  }
+
+  function handleClick() {
+    let stuname = document.querySelector('.stuname').value
+    let collage = document.querySelector('.collage').value
+    let stuid = document.querySelector('.stuid').value
+    let telephone = document.querySelector('.telephone').value
+
+    fetch('http:localhost:90/prize/addr/addUser', {
+      method: 'POST',
+      body: createForm({
+        stuname,
+        collage,
+        stuid,
+        telephone
+      }),
+      mode: 'no-cors'
+    })
+  }
+</script>
+</html>
