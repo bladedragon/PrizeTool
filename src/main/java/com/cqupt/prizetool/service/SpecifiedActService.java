@@ -23,6 +23,8 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,7 +48,7 @@ public class SpecifiedActService {
     @Autowired
     TaskExecutorConfig taskExecutorConfig;
 
-    public SpecifiedActResponse createSpecifiedAct(List<PrizeList> typeA, List<RewardList> typeB, String activity, HttpServletRequest request) throws SQLException, ValidException {
+    public SpecifiedActResponse createSpecifiedAct(List<PrizeList> typeA, List<RewardList> typeB, String activity, HttpServletRequest request) throws SQLException, ValidException, ExecutionException, InterruptedException {
           final int[] result = {-1};
         SimpleDateFormat f_date = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String date = f_date.format(new Date());
@@ -113,8 +115,14 @@ public class SpecifiedActService {
                 specifiedTypeMapper.insert(student);
                 Arewards.put(prizeList.getReward(),arewardID);
 
-                    taskExecutorConfig.asyncExecutor().execute(new SendThread(specifiedTypeMapper,templateMessageService,openid,msg,activity,prizeList.getReward(),date,prizeList.getPrizeDate(), prizeList.getRemark()
+                Future<Map<String,String>> thread_result = taskExecutorConfig.asyncExecutor().submit(
+                            new SendThread(specifiedTypeMapper,templateMessageService,openid,msg,activity,prizeList.getReward(),date,prizeList.getPrizeDate(), prizeList.getRemark()
                     ,student.getStuname(),student.getCollege(),student.getStuid(),reqStudent.getTelephone(),finalActid,arewardID,countDownLatch));
+
+                System.out.println("thread_result = "+thread_result.get());
+                    if(thread_result.get()!=null&&!thread_result.get().isEmpty()){
+                        failedMsg.add(thread_result.get());
+                            }
 
             }
     }

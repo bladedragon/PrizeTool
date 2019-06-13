@@ -13,9 +13,9 @@ import org.springframework.stereotype.Repository;
 
 public interface UserMapper {
 
-    @Insert("Insert into admin (username,password,sessionid) value(#{username},#{password},#{sessionid})")
+    @Insert("Insert into organization (username,password) value(#{username},#{password})")
     void insert(UserInfo userInfo);
 
-    @Select("Select * from admin where username = #{username}")
+    @Select("Select username , password from organization where username = #{username}")
     UserInfo selectByUsername(@Param("username") String username);
 }

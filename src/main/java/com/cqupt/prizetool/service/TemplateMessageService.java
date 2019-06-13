@@ -1,6 +1,7 @@
 package com.cqupt.prizetool.service;
 
 import com.alibaba.fastjson.JSON;
+import com.cqupt.prizetool.exception.ValidException;
 import com.cqupt.prizetool.utils.access_token.Scheduler;
 import com.cqupt.prizetool.model.TemplateData;
 import com.cqupt.prizetool.model.TemplateMsg;
@@ -68,12 +69,8 @@ public class TemplateMessageService {
         synchronized (this) {
             try {
                 HttpResponse = httpUtil.httpRequestToString(url, "POST", JSON.toJSONString(templateMsg));
-            } catch (NoSuchProviderException e) {
+            } catch (ValidException e) {
                 e.printStackTrace();
-                log.error("ZLOG==> Request error");
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-                log.error("ZLOG==> Request error");
             }
         }
 

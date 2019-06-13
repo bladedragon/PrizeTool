@@ -6,9 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>success</title>
     　<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
-    <script th:src="@{/js/jquery.cityselect.js}" ></script>
+
+    <link href="http://zblade.top:90/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://zblade.top:90/css/style.css" rel="stylesheet">
+    <script th:src="@{http://zblade.top:90/js/jquery.cityselect.js}" ></script>
     <style>
         .box {
             position: fixed;
@@ -26,8 +27,8 @@
             color: rgba(0, 0, 0, 0.65);
         }
         .box img {
-            width: 5vw;
-            height: 5vw;
+            width: 13vw;
+            height: 13vw;
             margin-bottom: 8vw;
         }
         .box .flex-col-start {
@@ -44,8 +45,8 @@
     <div class="flex-col-start">
         <img src="https://s2.ax1x.com/2019/02/06/kYXPNd.png">
         <span>领奖成功</span>
-        <button class="btn btn-lg  btn-block s-margin-2" id ="permit"  onclick="permit()">填写地址</button>
-        <button class="btn btn-lg  btn-block s-margin-2" id = "refuse" onclick="refuse()">暂不填写</button>
+        <button class="btn btn-lg s-margin-2 btn-block " id ="permit"  onclick="permit()">填写地址</button>
+        <button class="btn btn-lg s-margin-2 btn-block " id = "refuse" onclick="refuse()">暂不填写</button>
         <div class="flex-col-start" id = "addrButton" style="display: none;">
             <div class="person-data-place">
                 <p>居住地:</p>
@@ -65,8 +66,8 @@
 
 
 <script type="application/javascript">
-    // var hosturl = "http://localhost:90";
-    var hosturl = "http://2q95kb.natappfree.cc"
+    var hosturl = "http://zblade.top:90";
+// var hosturl = "http://pjgvam.natappfree.cc";
     function refuse() {
         window.location.href = hosturl+"/file/success.html";
     }

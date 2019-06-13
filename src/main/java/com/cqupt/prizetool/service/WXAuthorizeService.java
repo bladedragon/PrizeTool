@@ -3,6 +3,7 @@ package com.cqupt.prizetool.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.cqupt.prizetool.exception.ValidException;
 import com.cqupt.prizetool.model.WXAccount;
 import com.cqupt.prizetool.utils.HttpUtil;
 import com.cqupt.prizetool.utils.UserInfoUtil;
@@ -30,7 +31,7 @@ public class WXAuthorizeService {
 
     @Autowired
     private HttpUtil httpUtil;
-    public WXAccount getWxInfo(String code, String state) throws NoSuchProviderException, NoSuchAlgorithmException {
+    public WXAccount getWxInfo(String code, String state) throws NoSuchProviderException, NoSuchAlgorithmException, ValidException {
         String userid=null;
         String nickname=null;
 
@@ -95,10 +96,6 @@ public class WXAuthorizeService {
 
                 } catch (JSONException e) {
                     log.error("获取Web Access Token失败");
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();
-                } catch (NoSuchProviderException e) {
-                    e.printStackTrace();
                 }
             }
         }

@@ -7,9 +7,9 @@ import lombok.Data;
 @AllArgsConstructor
 public class UserInfo {
 
-    private String sessionid;
     private String username;
     private String password;
+
 
 
 }

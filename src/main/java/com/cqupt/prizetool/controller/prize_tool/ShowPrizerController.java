@@ -37,7 +37,7 @@ public class ShowPrizerController {
     }
 
 
-    @PostMapping("/showPrizerB")
+    @PostMapping("prize/showPrizerB")
     public ShowPrizerBResponse showPrizerB(@RequestParam(value = "token", required = false) String token, @RequestParam(value = "actid", defaultValue = "") String actId, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "pagesize", defaultValue = "5") int pagesize, HttpServletRequest request) throws ValidException {
 
         if (null == token || !request.getSession().getAttribute("SESSIONID").equals(token)) {
@@ -46,6 +46,7 @@ public class ShowPrizerController {
         if (pagesize == 0) {
             throw new ValidException("Pagesize cannot be zero");
         }
+
 
         ShowPrizerBResponse response = showPrizerService.showPrizerB(actId, page, pagesize);
 

@@ -36,7 +36,9 @@ public class UserService {
             return new UserResponse(-2,"密码不能为空！",null);
         }else {
 
+            System.out.println(username);
             UserInfo user =  userMapper.selectByUsername(username);
+            System.out.println("用户名查找结果为："+user.getUsername());
             if(user ==null){
                 return new UserResponse(-3,"用户名不存在",null);
             }

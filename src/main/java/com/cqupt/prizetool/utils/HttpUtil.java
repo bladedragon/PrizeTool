@@ -1,6 +1,8 @@
 package com.cqupt.prizetool.utils;
 
 
+import com.cqupt.prizetool.exception.ValidException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -11,10 +13,11 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 
 @Component
+@Slf4j
 public class HttpUtil {
 
 //    @Async("getAsyncExecutor")
-    public  String httpRequestToString(String path, String method, String body) throws NoSuchProviderException, NoSuchAlgorithmException {
+    public  String httpRequestToString(String path, String method, String body) throws ValidException {
         if (path == null || method == null) {
             return null;
         }
@@ -34,9 +37,19 @@ public class HttpUtil {
             conn.setRequestMethod(method);
 
             if (null != body) {
-                    OutputStream outputStream = conn.getOutputStream();
+                OutputStream outputStream = null;
+                try {
+                    outputStream = conn.getOutputStream();
                     outputStream.write(body.getBytes("UTF-8"));
+
+                }catch (Exception e){
+                    log.error(e.getMessage());
+//                    throw new ValidException("网络请求失败");
+                    return "";
+                }finally{
                     outputStream.close();
+                }
+
 
             }
             // 将返回的输入流转换成字符串

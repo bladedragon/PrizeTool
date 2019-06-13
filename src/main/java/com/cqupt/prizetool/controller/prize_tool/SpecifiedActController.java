@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @Slf4j
@@ -60,6 +61,10 @@ if(specifiedAct==null){
      } catch (SQLException e) {
          e.printStackTrace();
          log.error("ZLOG==>Occur SQL_Ecxption!!");
+     } catch (InterruptedException e) {
+         e.printStackTrace();
+     } catch (ExecutionException e) {
+         e.printStackTrace();
      }
 
      return response;

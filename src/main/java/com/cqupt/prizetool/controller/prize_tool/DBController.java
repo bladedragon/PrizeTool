@@ -27,9 +27,9 @@ public class DBController {
         createMapper.createAdmin();
         createMapper.createNon_specified_type();
         createMapper.createSpecified_type();
-        userMapper.insert(new UserInfo("","xc","zzz"));
-        userMapper.insert(new UserInfo("","redrock","redrock123456"));
-        userMapper.insert(new UserInfo("","zzz","zzz"));
+        userMapper.insert(new UserInfo("xc","zzz"));
+        userMapper.insert(new UserInfo("redrock","redrock123456"));
+        userMapper.insert(new UserInfo("zzz","zzz"));
         return new ErrorResponse(200,"success");
     }
 }

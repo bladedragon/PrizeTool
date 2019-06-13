@@ -11,12 +11,13 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
+import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 @Async("asyncExecutor")
 @Slf4j
-public class SendThread implements Runnable {
+public class SendThread implements Callable<Map<String,String>> {
     @Autowired
     SpecifiedTypeMapper specifiedTypeMapper;
     @Autowired
@@ -40,9 +41,9 @@ public class SendThread implements Runnable {
     private CountDownLatch latch;
 
 
-    public SendThread(SpecifiedTypeMapper specifiedTypeMapper,TemplateMessageService templateMessageService,
-            String openid,String msg,String activity,String reward,String date,String prizeDate,String rewark,
-               String stuname,String collage,String stuid,String telephone,String finalActid,String arewardID,CountDownLatch latch){
+    public SendThread(SpecifiedTypeMapper specifiedTypeMapper, TemplateMessageService templateMessageService,
+                      String openid, String msg, String activity, String reward, String date, String prizeDate, String rewark,
+                      String stuname, String collage, String stuid, String telephone, String finalActid, String arewardID, CountDownLatch latch) {
         this.specifiedTypeMapper = specifiedTypeMapper;
         this.templateMessageService = templateMessageService;
         this.openid = openid;
@@ -60,6 +61,7 @@ public class SendThread implements Runnable {
         this.arewardID = arewardID;
         this.latch = latch;
     }
+
     private static int getFailedSend(String httpResponse) {
         String text = null;
         Pattern pattern = Pattern.compile("\\\"errmsg\\\":\\\"(.*?)\\\"");
@@ -76,29 +78,53 @@ public class SendThread implements Runnable {
         return 0;
     }
 
+//    @Override
+//    public void run() {
+//        try {
+//            result[0] = getFailedSend(templateMessageService.sendMsg(openid, msg, activity, reward, date, prizeDate, remark));
+//            if (result[0] == 1) {
+//                Map<String, String> stuMsg = new HashMap<>();
+//                stuMsg.put("stuname", stuname);
+//                stuMsg.put("college", collage);
+//                stuMsg.put("stuid", stuid);
+//                stuMsg.put("telephone", telephone);
+//                stuMsg.put("reward", reward);
+//                failedMsg.add(stuMsg);
+//            }
+//            specifiedTypeMapper.updatePush_status(result[0], finalActid, arewardID, stuid);
+//            Thread.sleep(1000);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        latch.countDown();
+//    }
+
+
     @Override
-    public void run() {
+    public Map<String, String> call(){
+        Map<String, String> stuMsg = new HashMap<>();
         try {
             result[0] = getFailedSend(templateMessageService.sendMsg(openid, msg, activity, reward, date, prizeDate, remark));
+
+            System.out.println("SendThread里的result[0]"+result[0]);
             if (result[0] == 1) {
-                Map<String, String> stuMsg = new HashMap<>();
+
                 stuMsg.put("stuname", stuname);
                 stuMsg.put("college", collage);
                 stuMsg.put("stuid", stuid);
                 stuMsg.put("telephone", telephone);
                 stuMsg.put("reward", reward);
-                failedMsg.add(stuMsg);
             }
             specifiedTypeMapper.updatePush_status(result[0], finalActid, arewardID, stuid);
-            Thread.sleep(1000);
+//            Thread.sleep(1000);
         } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         latch.countDown();
+
+        System.out.println(stuMsg);
+        return stuMsg;
     }
-
-
-
 }

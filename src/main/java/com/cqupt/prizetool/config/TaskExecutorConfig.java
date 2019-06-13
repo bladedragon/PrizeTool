@@ -33,8 +33,8 @@ public class TaskExecutorConfig implements AsyncConfigurer{
 
     private static int corePoolSize = Runtime.getRuntime().availableProcessors();
     @Bean("asyncExecutor")
-    public Executor asyncExecutor(){
-         ThreadPoolExecutor executor = new ThreadPoolExecutor(
+    public ExecutorService asyncExecutor(){
+         ExecutorService executor = new ThreadPoolExecutor(
                 corePoolSize, corePoolSize + 10 ,
                 101, TimeUnit.SECONDS,
                 new LinkedBlockingQueue<Runnable>(1000));
