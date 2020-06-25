@@ -31,4 +31,6 @@ public class PrizeToolApplication extends SpringBootServletInitializer implement
 
         return application.sources(PrizeToolApplication.class);
     }
+
+    Thread thread = new Thread();
 }

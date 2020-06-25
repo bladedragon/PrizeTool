@@ -1,16 +1,16 @@
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://127.0.0.1/prize_tool_db?characterEncoding=utf8&useSSL=false&serverTimezone=UTC
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password:
-    druid:
-     slave:
+    master:
+      url: jdbc:mysql://127.0.0.1/prize_tool_db?characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: root
+      password:
+    slave:
       url: jdbc:mysql://127.0.0.1/prize_data_db?characterEncoding=utf8&useSSL=false&serverTimezone=UTC
       username: root
       password:
-
+    druid:
      initialSize: 10
      minIdle: 10
      maxActive: 100

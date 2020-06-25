@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 
-public class    DruidDataSourceBuilder {
+public class  DruidDataSourceBuilder {
         private DruidDataSource dataSource = new DruidDataSource();
 
         public final static DruidDataSourceBuilder newInstance() {

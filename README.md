@@ -1,2 +1,8 @@
 # PrizeTool
-new version of PrizreTool ,or maybe you can call it as a PrizeSystem
+方便学生部门领取奖品的领奖系统,集成获奖活动的发布,消息通知,奖品登记. 并针对发布活动的部门做了权限控制.
+
+
+
+### 技术栈
+
+前端采用`react`框架,后端基于`springboot`+`mybatis`编写

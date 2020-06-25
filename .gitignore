@@ -29,3 +29,7 @@ HELP.md
 /mvnw.cmd
 /mvnw
 /.mvn/
+/.mvn/
+
+mvnw.cmd
+mvnw

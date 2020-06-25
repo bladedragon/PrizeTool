@@ -31,6 +31,7 @@ public interface StuDataMapper {
     @Select("SELECT prior FROM student_address WHERE openid = #{openid}")
     List<Integer> getAddrsByOpenid(String openid);
 
+
     @Update("UPDATE student_address SET prior = prior+1 WHERE openid = #{openid}")
     int UpdatePrior(@Param("openid") String openid);
 }

@@ -33,11 +33,11 @@ public class SlaveDataSourceConfig {
         return new DataSourceTransactionManager(slaveDataSource());
     }
 
-    @Bean(name = "slaveSqlSessionFactory")
-    public SqlSessionFactory slaveSqlSessionFactory(@Qualifier("slaveDataSource") DataSource slaveDataSource)
+        @Bean(name = "slaveSqlSessionFactory")
+        public SqlSessionFactory slaveSqlSessionFactory(@Qualifier("slaveDataSource") DataSource slaveDataSource)
             throws Exception {
-        final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-        sessionFactory.setDataSource(slaveDataSource);
+            final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
+            sessionFactory.setDataSource(slaveDataSource);
 //        sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver()
 //                .getResources(SlaveDataSourceConfig.MAPPER_LOCATION));
         return sessionFactory.getObject();

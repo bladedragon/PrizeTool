@@ -7,6 +7,10 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.concurrent.ConcurrentHashMap;
+
 
 @Mapper
 @Repository
@@ -18,4 +22,6 @@ public interface UserMapper {
 
     @Select("Select username , password from organization where username = #{username}")
     UserInfo selectByUsername(@Param("username") String username);
+
+
 }
